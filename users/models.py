@@ -2,7 +2,7 @@ from datetime import datetime
 import re
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
 
 
 ## Utilities go here
@@ -37,6 +37,19 @@ class CustomUserManager(BaseUserManager):
         email,
         password,
         **other_fields):
+
+        if not first_name:
+            raise ValidationError('First name is required')
+        
+        if not last_name:
+            raise ValidationError('Last name is required')
+        
+        if not phone_number:
+            raise ValidationError('Phone number is required')
+        
+        # As validators do not run automatically unless used with a ModelForm
+        validate_birthdate(birthdate)
+        validate_phone_e164(phone_number)
         
         email = self.normalize_email(email)
         user = self.model(
