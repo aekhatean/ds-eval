@@ -133,3 +133,11 @@ class ExtendedUser(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+    
+
+class Status(models.Model):
+    user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE)
+    status = models.CharField(max_length=30)
+    
+    def __str__(self):
+        return f'{self.user} - status #{self.id}'

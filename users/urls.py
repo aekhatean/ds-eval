@@ -1,8 +1,8 @@
-from atexit import register
 from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('register/', CreateUserView.as_view(), name='register'),
-    # path('login/', CreateUserView.as_view()),
+    path('create-user/', CreateUserView.as_view(), name='create-user'),
+    path('obtain-token/', ObtainTokenView.as_view(), name='obtain-token'),
+    path('create-status/', CreateStatusView.as_view(), name='create-status'),
 ]
