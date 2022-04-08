@@ -8,6 +8,8 @@ django = "*"
 coverage = "*"
 pillow = "*"
 djangorestframework = "*"
+django-allauth = "*"
+django-rest-auth = "*"
 
 [dev-packages]
 
