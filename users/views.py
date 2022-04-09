@@ -38,6 +38,10 @@ class CreateStatusView(APIView):
             "status": request.data["status"],
         })
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            if user == request.user:
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                # Could have used (serializer.errors), but this is clearer response
+                return Response({'error': 'HTTP_401_UNAUTHORIZED'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
